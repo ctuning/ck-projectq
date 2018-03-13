@@ -1,7 +1,7 @@
 # ck-projectq
 
 
-[PROJECTQ](https://github.com/dividiti/ck-quantum-private/blob/master/README.md#projectq)
+[ProjectQ](https://projectq.ch/)
 
 
 ## Installation 
@@ -95,3 +95,22 @@ $ ck run program:projectq-demo --cmd_key=shor --env.CK_SHOR_INPUT=101 --env.OMP_
 ```
 $ ck run program:projectq-shor --cmd_key=shor --env.CK_SHOR_INPUT=101 --env.CK_PROJECTQ_IBM_DEVICE=ibmqx4
 ```
+
+## FAQ
+
+### Where does CK store my program and its output?
+
+A program can be located on disk by its name as follows:
+```
+$ ck find program:projectq-shor
+/home/flavio/CK-REPOS/ck-quantum-private/program/projectq-shor
+$ ls `ck find program:projectq-shor`
+quantum_random_numbers.py  shor.py
+```
+
+Temporary files (including the executable, `stderr` and `stdout`) are in the `tmp` directory:
+```
+$ cd `ck find program:projectq-shor`/tmp
+```
+
+## Troubleshooting
