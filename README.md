@@ -1,7 +1,7 @@
 # ck-projectq
 
 
-[ProjectQ](https://projectq.ch/)
+[ProjectQ](https://projectq.ch/) official documentation.
 
 
 ## Installation 
