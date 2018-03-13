@@ -12,11 +12,9 @@
 $ sudo apt-get install build-essential
 ```
 
-```
-$ sudo apt install libblas-dev liblapack-dev
-```
 
-### Install Python 3 (Python 2 is also supported)
+### Install Python 3 
+(Python 2 is also supported)
 
 ```
 $ sudo apt-get install python3 python3-pip
