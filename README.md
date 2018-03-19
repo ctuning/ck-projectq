@@ -39,7 +39,7 @@ $ ck pull repo --url=git@github.com:ctuning/ck-projectq
 List all the packages available 
 
 ```
-$ ck list ck-projecq:package:*
+$ ck list ck-projectq:package:*
 ```
 
 ### ProjectQ
