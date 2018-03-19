@@ -55,7 +55,7 @@ if [ "$USE_PYTHON_SIM" -eq "0" ]; then
 else 
    echo "Using (slow) Python simulator"
    ${CK_PYTHON_BIN} -m pip install . numpy -t ${PROJECTQ_LIB_DIR} --no-cache-dir 
-   ${CK_PYTHON_BIN} -m pip install . -t ${PROJECTQ_LIB_DIR} --global-option=--without-cppsimulator  
+#   ${CK_PYTHON_BIN} -m pip install . -t ${PROJECTQ_LIB_DIR} --global-option=--without-cppsimulator --no-cache-dir 
 
 fi
 
