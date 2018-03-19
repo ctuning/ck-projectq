@@ -33,7 +33,7 @@ $ sudo pip3 install ck
 
 ### Install this CK repository with all its dependencies (other CK repos to reuse artifacts)
 ```
-$ ck pull repo --url=git@github.com:dividiti/ck-projectq
+$ ck pull repo --url=git@github.com:ctuning/ck-projectq
 ```
 
 
