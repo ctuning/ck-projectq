@@ -17,7 +17,6 @@ echo "**************************************************************"
 echo "Installing ProjectQ ..."
 
 
-
 # Check extra stuff
 export PROJECTQ_LIB_DIR=${INSTALL_DIR}/build
 
@@ -31,18 +30,6 @@ rm -rf ${PROJECTQ_LIB_DIR}
 echo ""
 echo "Note that you sometimes need to upgrade your pip to the latest version"
 echo "to avoid well-known issues with user/system space installation:"
-
-SUDO="sudo "
-if [[ ${CK_PYTHON_PIP_BIN_FULL} == /home/* ]] ; then
-  SUDO=""
-fi
-
-# Check if has --system option
-${CK_PYTHON_PIP_BIN_FULL} install --help > tmp-pip-help.tmp
-if grep -q "\-\-system" tmp-pip-help.tmp ; then
- SYS=" --system"
-fi
-rm -f tmp-pip-help.tmp
 
 ######################################################################################
 
