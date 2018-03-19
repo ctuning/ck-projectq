@@ -30,9 +30,14 @@
   "deps": {
     "compiler": {
       "local": "yes", 
-      "name": "GCC compiler", 
+      "name": "C++ compiler",
       "sort": 10, 
-      "tags": "compiler, gcc"
+      "tags": "compiler,lang-cpp",
+      "update_tags_by_target_os_uoa": {
+        "linux-64": "gcc",
+        "linux-32": "gcc",
+        "macos-64": "llvm"
+      }
     }, 
     "python": {
       "local": "yes", 
