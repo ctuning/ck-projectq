@@ -48,18 +48,19 @@ rm -f tmp-pip-help.tmp
 
 cd ${INSTALL_DIR}/src
 
-if [ "$USE_PYTHON_SIM" -eq "0" ]; then
-    echo "Using CPP Simulator"
-
-    ${CK_PYTHON_BIN} -m pip install --user pybind11 --no-cache-dir
-    env CC=${CK_CXX} ${CK_PYTHON_BIN} -m pip install . -t ${PROJECTQ_LIB_DIR} --no-cache-dir
-
-else 
-    echo "Using (slow) Python simulator"
+if [ "$USE_PYTHON_SIM" -eq "1" ]; then
+    echo "Using Python simulator (slower)"
 
     ${CK_PYTHON_BIN} -m pip install numpy -t ${PROJECTQ_LIB_DIR} --no-cache-dir
     ${CK_PYTHON_BIN} -m pip install projectq . --no-deps -t ${PROJECTQ_LIB_DIR} --global-option=--without-cppsimulator --no-cache-dir
+
+else 
+    echo "Using C++ Simulator (faster)"
+
+        # FIXME: Currently installs pybind11 into user's directory (to make sure it is visible for the next pip command).
+        #        A better way would be to put it into ${PROJECTQ_LIB_DIR} and make pip see it there
+        #        (by default it doesn't happen).
+    ${CK_PYTHON_BIN} -m pip install --user pybind11 --no-cache-dir
+    env CC=${CK_CXX} ${CK_PYTHON_BIN} -m pip install . -t ${PROJECTQ_LIB_DIR} --no-cache-dir
 fi
 
-
-return 0
