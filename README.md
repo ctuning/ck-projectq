@@ -13,13 +13,11 @@ $ sudo apt-get install build-essential
 ```
 
 
-### Install Python 3 
+### Install Python 3 and its pip
 (Python 2 is also supported)
 
 ```
 $ sudo apt-get install python3 python3-pip
-$ sudo pip3 install scipy
-$ sudo pip3 install pybind11
 ```
 
 ### Install Collective Knowledge
@@ -27,7 +25,6 @@ $ sudo pip3 install pybind11
 ```
 $ sudo pip3 install ck
 ```
-
 
 
 
