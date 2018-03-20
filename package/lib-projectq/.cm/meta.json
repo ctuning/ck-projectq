@@ -43,6 +43,7 @@
       "local": "yes", 
       "name": "Python", 
       "sort": 5, 
+      "add_to_path": "yes",
       "tags": "compiler,python"
     }
   }, 
