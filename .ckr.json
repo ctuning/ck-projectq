@@ -2,6 +2,12 @@
   "data_uid": "993b239e06ccdc9e", 
   "data_name": "ck-projectq", 
   "dict": {
+    "repo_deps": [
+      {
+        "repo_uoa": "ck-autotuning",
+        "repo_url": "https://github.com/ctuning/ck-autotuning"
+      }
+    ],
     "url": "git@github.com:ctuning/ck-projectq.git", 
     "shared": "git"
   }, 
