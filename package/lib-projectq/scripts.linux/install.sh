@@ -55,7 +55,7 @@ else
         #        A better way would be to put it into ${PROJECTQ_LIB_DIR} and make pip see it there
         #        (by default it doesn't happen).
     ${CK_PYTHON_BIN} -m pip install --user pybind11 --no-cache-dir
-    env CC="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --prefix=${PY_DEPS_TREE} --no-cache-dir
+    env CC="${CK_CC} ${CK_EXTRA_MISC_CXX_FLAGS}" CXX="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
 
 if [ "${?}" != "0" ] ; then

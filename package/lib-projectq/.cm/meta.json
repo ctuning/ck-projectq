@@ -32,10 +32,7 @@
       "local": "yes", 
       "name": "C++ compiler",
       "sort": 10, 
-      "tags": "compiler,lang-cpp",
-      "update_tags_by_target_os_uoa": {
-        "macos-64": "llvm"
-      }
+      "tags": "compiler,lang-cpp"
     }, 
     "python": {
       "local": "yes", 
