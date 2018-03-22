@@ -77,7 +77,7 @@ $ ck run program:projectq-demo --cmd_key=teleport
 How to set-up a CK variable for a given command
 
 ```
-$ ck run program:projectq-demo --cmd_key=shor --env.CK_SHOR_INPUT=7
+$ ck run program:projectq-demo --cmd_key=shor --env.CK_SHOR_INPUT=15
 ```
 ### Other options 
 
