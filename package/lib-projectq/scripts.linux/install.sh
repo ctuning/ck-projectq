@@ -58,6 +58,11 @@ else
     env CC="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
 
+if [ "${?}" != "0" ] ; then
+    echo "Error: installation failed!"
+    exit 1
+fi
+
     # In order for the asterisk to expand properly,
     # we have to do it AFTER the directory tree has been populated:
     #
