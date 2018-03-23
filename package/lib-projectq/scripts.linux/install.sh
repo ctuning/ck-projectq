@@ -21,16 +21,16 @@ echo "Installing ProjectQ ..."
     #
 PY_DEPS_TREE=${INSTALL_DIR}/py_deps
 
-    # This is the link that *will* be pointing at the directory with modules.
-    # However, because we want to use asterisk expansion, we will create
-    # the link itself *after* PY_DEPS_TREE has been already populated.
-    #
-export PROJECTQ_LIB_DIR=${INSTALL_DIR}/build
-
 ######################################################################################
 echo ""
 echo "Removing '${PY_DEPS_TREE}' ..."
-rm -rf ${PY_DEPS_TREE} ${PROJECTQ_LIB_DIR}
+rm -rf ${PY_DEPS_TREE}
+
+    # This is the "end" directory that will contain dependencies and projectq module itself:
+    #
+export PROJECTQ_LIB_DIR=${INSTALL_DIR}/build
+SHORT_PYTHON_VERSION=`${CK_ENV_COMPILER_PYTHON_FILE} -c 'import sys;print(sys.version[:3])'`
+ln -s "${PY_DEPS_TREE}/lib/python${SHORT_PYTHON_VERSION}/site-packages" $PROJECTQ_LIB_DIR
 
 ######################################################################################
 # Print info about possible issues
@@ -42,29 +42,23 @@ echo "to avoid well-known issues with user/system space installation:"
 
 cd ${INSTALL_DIR}/src
 
+    # First we install the dependencies and provide a path to them:
+    #
+${CK_PYTHON_BIN} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
+export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
+
 if [ "$USE_PYTHON_SIM" -eq "1" ]; then
     echo "Using Python simulator (slower)"
 
-    ${CK_PYTHON_BIN} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
-    ${CK_PYTHON_BIN} -m pip install projectq . --no-deps --prefix=${PY_DEPS_TREE} --global-option=--without-cppsimulator --no-cache-dir
-
+    ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --global-option=--without-cppsimulator --no-cache-dir
 else 
     echo "Using C++ Simulator (faster)"
 
-        # FIXME: Currently installs pybind11 into user's directory (to make sure it is visible for the next pip command).
-        #        A better way would be to put it into ${PROJECTQ_LIB_DIR} and make pip see it there
-        #        (by default it doesn't happen).
-    ${CK_PYTHON_BIN} -m pip install --user pybind11 --no-cache-dir
-    env CC="${CK_CC} ${CK_EXTRA_MISC_CXX_FLAGS}" CXX="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --prefix=${PY_DEPS_TREE} --no-cache-dir
+    env CC="${CK_CC} ${CK_EXTRA_MISC_CXX_FLAGS}" CXX="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
 
 if [ "${?}" != "0" ] ; then
     echo "Error: installation failed!"
     exit 1
 fi
-
-    # In order for the asterisk to expand properly,
-    # we have to do it AFTER the directory tree has been populated:
-    #
-ln -s $PY_DEPS_TREE/lib/python*/site-packages $PROJECTQ_LIB_DIR
 
