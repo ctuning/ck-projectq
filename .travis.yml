@@ -1,0 +1,35 @@
+# After changing this file, check it on:
+#   http://lint.travis-ci.org/
+
+os: linux
+
+language: python
+
+python: 
+    - 3.6
+    - 2.7
+
+env:
+    global:
+        - TRAVIS_CK_WHICH_TEST=teleport
+    matrix:
+        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
+        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
+        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
+        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
+
+addons:
+    apt:
+        packages:
+            - python-pip
+
+install:
+    - pip install -r requirements.txt                                       # ck kernel itself
+    - ck pull repo:ck-projectq                                              # trigger pulling dependent repositories
+    - echo 1 | ck detect platform.os --update_platform_init                 # set the platform to generic-linux
+    -          ck detect soft:compiler.python --full_path=`which python`    # pick the one Travis has set for us in the PATH
+    -          ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER}
+    -          ck install package:lib-projectq --env.USE_PYTHON_SIM=${TRAVIS_CK_USE_PYTHON_SIM}
+
+script:
+    - ck run program:projectq-demo --cmd_key=${TRAVIS_CK_WHICH_TEST}
