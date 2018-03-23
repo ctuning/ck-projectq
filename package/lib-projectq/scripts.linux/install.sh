@@ -31,6 +31,7 @@ rm -rf ${PY_DEPS_TREE}
 export PROJECTQ_LIB_DIR=${INSTALL_DIR}/build
 SHORT_PYTHON_VERSION=`${CK_ENV_COMPILER_PYTHON_FILE} -c 'import sys;print(sys.version[:3])'`
 ln -s "${PY_DEPS_TREE}/lib/python${SHORT_PYTHON_VERSION}/site-packages" $PROJECTQ_LIB_DIR
+export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
 
 ######################################################################################
 # Print info about possible issues
@@ -45,7 +46,11 @@ cd ${INSTALL_DIR}/src
     # First we install the dependencies and provide a path to them:
     #
 ${CK_PYTHON_BIN} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
-export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
+
+if [ "${?}" != "0" ] ; then
+    echo "Error: installation of the dependencies failed!"
+    exit 1
+fi
 
 if [ "$USE_PYTHON_SIM" -eq "1" ]; then
     echo "Using Python simulator (slower)"
@@ -58,7 +63,7 @@ else
 fi
 
 if [ "${?}" != "0" ] ; then
-    echo "Error: installation failed!"
+    echo "Error: installation of the main projectq package failed!"
     exit 1
 fi
 
