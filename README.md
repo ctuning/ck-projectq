@@ -1,5 +1,7 @@
 # ck-projectq
 
+[![Travis Build Status](https://travis-ci.org/ctuning/ck-projectq.svg?branch=master)](https://travis-ci.org/ctuning/ck-projectq)
+
 
 [ProjectQ](https://projectq.ch/) official documentation.
 
