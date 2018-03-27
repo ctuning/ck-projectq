@@ -6,20 +6,12 @@
 [ProjectQ](https://projectq.ch/) official documentation.
 
 
-## Installation 
+## Installation (on Ubuntu)
 
-### Install global prerequisites (Ubuntu)
-
-```
-$ sudo apt-get install build-essential
-```
-
-
-### Install Python 3 and its pip
-(Python 2 is also supported)
+### Install global prerequisites, Python and its pip (Python2 is also supported)
 
 ```
-$ sudo apt-get install python3 python3-pip
+$ sudo apt-get install build-essential python3 python3-pip
 ```
 
 ### Install Collective Knowledge
@@ -29,21 +21,35 @@ $ sudo pip3 install ck
 ```
 
 
+## Installation (on MacOSX)
+
+### Install global prerequisites, Python and its pip (Python2 is also supported)
+
+```
+$ brew install wget python pip
+```
+
+### Install Collective Knowledge
+
+```
+$ pip install ck
+```
+
+
+## Common part of the installation
+
 ### Install this CK repository with all its dependencies (other CK repos to reuse artifacts)
 ```
-$ ck pull repo --url=git@github.com:ctuning/ck-projectq
+$ ck pull repo:ck-projectq
 ```
 
-
-## Packages installation
-
-List all the packages available 
+### List all the packages available 
 
 ```
 $ ck list ck-projectq:package:*
 ```
 
-### ProjectQ
+### Install CK package for ProjectQ
 
 ```
 $ ck install package:lib-projectq
@@ -52,8 +58,9 @@ $ ck install package:lib-projectq
 By default CK tries to compile ProjectQ and C++-Simulator. In order to use the (slow) Python simulator:
 
 ```
- $ ck install package:lib-projectq --env.USE_PYTHON_SIM=1
+$ ck install package:lib-projectq --env.USE_PYTHON_SIM=1
 ```
+
 
 ## Run Programs 
 
