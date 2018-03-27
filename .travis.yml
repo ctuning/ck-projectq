@@ -6,8 +6,8 @@ os: linux
 language: python
 
 python: 
-    - 3.6
     - 2.7
+    - 3.6
 
 env:
     global:
@@ -26,14 +26,17 @@ matrix:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
                 - sudo easy_install pip
+                - sudo pip install -r requirements.txt
 
 addons:
     apt:
         packages:
             - python-pip
 
-install:
+before_install:
     - pip install -r requirements.txt                                       # ck kernel itself
+
+install:
     - ck pull repo:ck-projectq                                              # trigger pulling dependent repositories
     - echo 1 | ck detect platform.os --update_platform_init                 # set the platform to generic-linux
     -          ck detect soft:compiler.python --full_path=`which python`    # pick the one Travis has set for us in the PATH
