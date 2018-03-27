@@ -25,8 +25,8 @@ matrix:
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
-                - sudo easy_install pip
-                - sudo pip install -r requirements.txt
+                - brew install pip
+                - pip install -r requirements.txt
 
 addons:
     apt:
