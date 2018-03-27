@@ -24,7 +24,7 @@ matrix:
           language: generic
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
-        before_install:
+          before_install:
                 - easy_install pip
 
 addons:
