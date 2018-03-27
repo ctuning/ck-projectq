@@ -47,6 +47,8 @@ cd ${INSTALL_DIR}/src
     #
 ${CK_PYTHON_BIN} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
 
+find $PY_DEPS_TREE      # debug to find out why <pybind11/pybind11.h> is not found
+
 if [ "${?}" != "0" ] ; then
     echo "Error: installation of the dependencies failed!"
     exit 1
