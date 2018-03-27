@@ -25,12 +25,14 @@ matrix:
     include:
         - os: osx
           language: generic
+          python:   3.6
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
           before_install:
                 - brew update                           # this swaps python versions and makes 3 the default one
                 - brew reinstall python                 # install and link python3 and pip3 to /usr/local/bin
                 - brew install llvm\@5
+                - brew install pybind11
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
         - os: osx
           language: generic
@@ -44,15 +46,18 @@ matrix:
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
         - os: osx
           language: generic
+          python:   3.6
           env:
                 - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
           before_install:
                 - brew update                           # this swaps python versions and makes 3 the default one
                 - brew reinstall python                 # install and link python3 and pip3 to /usr/local/bin
                 - brew install gcc\@6 || brew link --overwrite gcc\@6   # to avoid symlink conflict with oclint
+                - brew install pybind11
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
         - os: osx
           language: generic
+          python:   3.6
           env:
                 - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
