@@ -6,8 +6,8 @@ os: linux
 language: python
 
 python: 
-    - 3.6
-#    - 2.7
+    - 2.7
+#    - 3.6
 
 env:
     global:
@@ -34,6 +34,7 @@ matrix:
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
         - os: osx
           language: generic
+          python:   3.6
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
