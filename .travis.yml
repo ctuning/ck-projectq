@@ -6,8 +6,8 @@ os: linux
 language: python
 
 python: 
-    - 2.7
-#    - 3.6
+    - 3.6
+#    - 2.7
 
 env:
     global:
@@ -25,19 +25,20 @@ matrix:
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
-                - brew update
-                - brew reinstall python
-                - ls -la /usr/local/bin
-                - echo "PATH = $PATH"
-                - which -a python
-                - python --version
-                - pip install -r requirements.txt
+                - brew update                           # this swaps python versions and makes 3 the default one
+                - brew reinstall python                 # install and link python3 and pip3 to /usr/local/bin
+                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
+                - ln -s /usr/local/bin/python3 /usr/local/bin/python
+                - ln -s /usr/local/bin/pip3 /usr/local/bin/pip
 
 before_install:
     - sudo apt-get install python-pip
-    - pip install -r requirements.txt                                       # ck kernel itself
 
 install:
+    - echo "PATH = $PATH"
+    - which python
+    - python --version
+    - pip install -r requirements.txt                                       # ck kernel itself
     - ck pull repo:ck-projectq                                              # trigger pulling dependent repositories
     - echo 1 | ck detect platform.os --update_platform_init                 # set the platform to generic-linux
     -          ck detect soft:compiler.python --full_path=`which python`    # pick the one Travis has set for us in the PATH
