@@ -7,15 +7,15 @@ language: python
 
 python: 
     - 2.7
-    - 3.6
+#    - 3.6
 
 env:
     global:
         - TRAVIS_CK_WHICH_TEST=teleport
     matrix:
         - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
-        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
-        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
+#        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
+#        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
         - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
 
 matrix:
@@ -25,7 +25,9 @@ matrix:
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
-                - brew install pip
+                - brew reinstall python
+                - which -a python
+                - python --version
                 - pip install -r requirements.txt
 
 addons:
