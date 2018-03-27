@@ -25,17 +25,16 @@ matrix:
           env:
                 - TRAVIS_CK_CXX_COMPILER=llvm    TRAVIS_CK_USE_PYTHON_SIM=1
           before_install:
+                - brew update
                 - brew reinstall python
+                - ls -la /usr/local/bin
+                - echo "PATH = $PATH"
                 - which -a python
                 - python --version
                 - pip install -r requirements.txt
 
-addons:
-    apt:
-        packages:
-            - python-pip
-
 before_install:
+    - sudo apt-get install python-pip
     - pip install -r requirements.txt                                       # ck kernel itself
 
 install:
