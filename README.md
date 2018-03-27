@@ -23,10 +23,12 @@ $ sudo pip3 install ck
 
 ## Installation (on MacOSX)
 
-### Install global prerequisites, Python and its pip (Python2 is also supported)
+### Install global prerequisites, LLVM compiler, Python3 and its Pip3 (Python2 is also supported)
 
 ```
-$ brew install wget python pip
+$ brew update
+$ brew install wget llvm\@5
+$ brew reinstall python
 ```
 
 ### Install Collective Knowledge
