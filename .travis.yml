@@ -34,7 +34,7 @@ matrix:
           before_install:
                 - brew update                                                   # this swaps python versions and makes 3 the default one
                 - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - pip install --ignore-installed --verbose pip                  # make sure pip is also up to date no matter what
+                - pip install --ignore-installed --verbose pip setuptools       # make sure pip is also up to date no matter what
                 - brew install llvm\@5
                 - brew install pybind11                                         # only needed for the C++ sim
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
@@ -46,7 +46,7 @@ matrix:
           before_install:
                 - brew update                                                   # this swaps python versions and makes 3 the default one
                 - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - pip install --ignore-installed --verbose pip                  # make sure pip is also up to date no matter what
+                - pip install --ignore-installed --verbose pip setuptools       # make sure pip is also up to date no matter what
                 - brew install llvm\@5
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
         - os: osx
@@ -57,7 +57,7 @@ matrix:
           before_install:
                 - brew update                                                   # this swaps python versions and makes 3 the default one
                 - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - pip install --ignore-installed --verbose pip                  # make sure pip is also up to date no matter what
+                - pip install --ignore-installed --verbose pip setuptools       # make sure pip is also up to date no matter what
                 - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
                 - brew install pybind11                                         # only needed for the C++ sim
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
@@ -69,7 +69,7 @@ matrix:
           before_install:
                 - brew update                                                   # this swaps python versions and makes 3 the default one
                 - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - pip install --ignore-installed --verbose pip                  # make sure pip is also up to date no matter what
+                - pip install --ignore-installed --verbose pip setuptools       # make sure pip is also up to date no matter what
                 - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
                 - export PATH=/usr/local/opt/python/libexec/bin:$PATH
 #
