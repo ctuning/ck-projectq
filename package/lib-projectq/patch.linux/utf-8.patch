@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index 604f006..c7a0576 100755
+--- a/setup.py
++++ b/setup.py
+@@ -9,7 +9,7 @@ import setuptools
+ exec(open('projectq/_version.py').read())
+ 
+ # Readme file as long_description:
+-long_description = open('README.rst').read()
++long_description = open('README.rst', encoding='utf-8').read()
+ 
+ # Read in requirements.txt
+ with open('requirements.txt', 'r') as f_requirements:
