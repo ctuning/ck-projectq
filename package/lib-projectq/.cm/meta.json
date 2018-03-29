@@ -53,7 +53,7 @@
   "package_extra_name": " (built, cpu)", 
   "process_script": "install", 
   "soft_uoa": "9c33483e8eb28521", 
-  "suggested_path": "projectq", 
+  "suggested_path": "lib-projectq", 
   "tags": [
     "lib", 
     "projectq", 
