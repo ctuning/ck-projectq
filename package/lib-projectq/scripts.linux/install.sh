@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #
-# Installation script for Caffe.
+# Installation script for ProjectQ.
 #
-# See CK LICENSE for licensing details.
-# See CK COPYRIGHT for copyright details.
+# See CK LICENSE.txt for licensing details.
+# See CK COPYRIGHT.txt for copyright details.
 #
 # Developer(s):
 # - Flavio Vella, 2018;
@@ -61,7 +61,7 @@ if [ "$USE_PYTHON_SIM" -eq "1" ]; then
 
     ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --global-option=--without-cppsimulator --no-cache-dir
 else 
-    echo "Using C++ Simulator (faster)"
+    echo "Using C++ simulator (faster)"
 
     env CC="${CK_CC} ${CK_EXTRA_MISC_CXX_FLAGS}" CXX="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
