@@ -63,7 +63,7 @@ if [ "$USE_PYTHON_SIM" -eq "1" ]; then
 else 
     echo "Using C++ simulator (faster)"
 
-    env CC="${CK_CC} ${CK_EXTRA_MISC_CXX_FLAGS}" CXX="${CK_CXX} ${CK_EXTRA_MISC_CXX_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
+    env CC="${CK_CC} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}" CXX="${CK_CXX} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
 
 if [ "${?}" != "0" ] ; then
