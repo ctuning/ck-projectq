@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index 604f006..c7a0576 100755
+index 604f006..e7fff87 100755
 --- a/setup.py
 +++ b/setup.py
 @@ -9,7 +9,7 @@ import setuptools
@@ -7,7 +7,7 @@ index 604f006..c7a0576 100755
  
  # Readme file as long_description:
 -long_description = open('README.rst').read()
-+long_description = open('README.rst', encoding='utf-8').read()
++long_description = (open('README.rst', encoding='utf-8') if sys.version_info[0]>2 else open('README.rst')).read()
  
  # Read in requirements.txt
  with open('requirements.txt', 'r') as f_requirements:
