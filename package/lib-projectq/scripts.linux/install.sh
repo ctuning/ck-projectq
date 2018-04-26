@@ -34,11 +34,6 @@ SHORT_PYTHON_VERSION=`${CK_ENV_COMPILER_PYTHON_FILE} -c 'import sys;print(sys.ve
 ln -s "${PY_DEPS_TREE}/lib/python${SHORT_PYTHON_VERSION}/site-packages" $PROJECTQ_LIB_DIR
 export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
 
-echo "------------- PROJECTQ_LIB_DIR = $PROJECTQ_LIB_DIR -------------------"
-ls -l $PROJECTQ_LIB_DIR/
-echo "------------- PROJECTQ_INC_DIR = $PROJECTQ_INC_DIR -------------------"
-ls -l $PROJECTQ_INC_DIR/
-
 ######################################################################################
 # Print info about possible issues
 echo ""
@@ -58,6 +53,9 @@ if [ "${?}" != "0" ] ; then
     exit 1
 fi
 
+echo "------------- PROJECTQ_LIB_DIR = $PROJECTQ_LIB_DIR -------------------"
+ls -l $PROJECTQ_LIB_DIR/
+
 if [ "$USE_PYTHON_SIM" -eq "1" ]; then
     echo "Using Python simulator (slower)"
 
@@ -66,6 +64,10 @@ else
     echo "Using C++ simulator (faster)"
 
     ln -s ${PY_DEPS_TREE}/include/python* $PROJECTQ_INC_DIR   # either the asterisk expands, or the directory is empty anyway
+
+    echo "------------- PROJECTQ_INC_DIR = $PROJECTQ_INC_DIR -------------------"
+    ls -l $PROJECTQ_INC_DIR/
+
     export COMMON_FLAGS="-I${PROJECTQ_INC_DIR} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}"
     env CC="${CK_CC} ${COMMON_FLAGS}" CXX="${CK_CXX} ${COMMON_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
