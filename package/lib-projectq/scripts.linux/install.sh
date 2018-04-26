@@ -66,7 +66,10 @@ else
     ln -s ${PY_DEPS_TREE}/include/python* $PROJECTQ_INC_DIR   # either the asterisk expands, or the directory is empty anyway
 
     echo "------------- PROJECTQ_INC_DIR = $PROJECTQ_INC_DIR -------------------"
+    ls -ld $PROJECTQ_INC_DIR
     ls -l $PROJECTQ_INC_DIR/
+    echo "------- find ${PY_DEPS_TREE}/include/ ------"
+    find ${PY_DEPS_TREE}/include
 
     export COMMON_FLAGS="-I${PROJECTQ_INC_DIR} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}"
     env CC="${CK_CC} ${COMMON_FLAGS}" CXX="${CK_CXX} ${COMMON_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
