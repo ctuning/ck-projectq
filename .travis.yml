@@ -48,17 +48,17 @@ before_install:
         if [ $TRAVIS_OS_NAME == "osx" ]; then
             brew update                                                         # this swaps python versions and makes 3 the default one
 
-            if [ $TRAVIS_PYTHON_VERSION == 2* ]; then
-                - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
+            if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then
+                brew reinstall python\@2 || brew link --overwrite python\@2     # install and link python2 and pip2 to /usr/local/bin
             else
                 brew reinstall python                                           # install and link python3 and pip3 to /usr/local/bin
             fi
             export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
-            if [ $TRAVIS_CK_CXX_COMPILER == "llvm" ]; then
-                - brew install llvm\@5
-            elif [ $TRAVIS_CK_CXX_COMPILER == "gcc" ]; then
-                - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
+            if [ "$TRAVIS_CK_CXX_COMPILER" == "llvm" ]; then
+                brew install llvm\@5
+            elif [ "$TRAVIS_CK_CXX_COMPILER" == "gcc" ]; then
+                brew install gcc\@6 || brew link --overwrite gcc\@6             # to avoid symlink conflict with oclint
             fi
 
             export CK_PLATFORM_INDEX=2                                          # used later by CK
