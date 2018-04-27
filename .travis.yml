@@ -1,9 +1,8 @@
 # After changing this file, check it on:
 #   http://lint.travis-ci.org/
 
-os: linux
-
-language: python
+os:         linux
+language:   python
 
 python: 
     - 2.7
@@ -13,111 +12,71 @@ env:
     global:
         - TRAVIS_CK_WHICH_TEST=teleport
     matrix:
-        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
-        - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
-        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
-        - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
-
-before_install:
-    - sudo apt-get install python-pip
+        - TRAVIS_CK_USE_PYTHON_SIM=1    TRAVIS_CK_CXX_COMPILER=llvm
+        - TRAVIS_CK_USE_PYTHON_SIM=0    TRAVIS_CK_CXX_COMPILER=llvm
+        - TRAVIS_CK_USE_PYTHON_SIM=0    TRAVIS_CK_CXX_COMPILER=gcc
 
 matrix:
     include:
-#
-# ------------------------------- Python2 on MacOSX: ------------------------------------
-#
         - os: osx
           language: generic
           python:   2.7
-          env:
-                - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install llvm\@5
+          env:      TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
           python:   2.7
-          env:
-                - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install llvm\@5
+          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
           python:   2.7
-          env:
-                - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
+          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
+        - os: osx
+          language: generic
+          python:   3.6
+          env:      TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
+        - os: osx
+          language: generic
+          python:   3.6
+          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
+        - os: osx
+          language: generic
+          python:   3.6
+          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
+
+before_install:
+    - |
+        if [ $TRAVIS_OS_NAME == "osx" ]; then
+            brew update                                                         # this swaps python versions and makes 3 the default one
+
+            if [ $TRAVIS_PYTHON_VERSION == 2* ]; then
                 - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
-        - os: osx
-          language: generic
-          python:   2.7
-          env:
-                - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python\@2 || brew link --overwrite python\@2   # install and link python2 and pip2 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
-#
-# ------------------------------- Python3 on MacOSX: ------------------------------------
-#
-        - os: osx
-          language: generic
-          python:   3.6
-          env:
-                - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=0
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python                                         # install and link python3 and pip3 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
+            else
+                brew reinstall python                                           # install and link python3 and pip3 to /usr/local/bin
+            fi
+            export PATH=/usr/local/opt/python/libexec/bin:$PATH
+
+            if [ $TRAVIS_CK_CXX_COMPILER == "llvm" ]; then
                 - brew install llvm\@5
-        - os: osx
-          language: generic
-          python:   3.6
-          env:
-                - TRAVIS_CK_CXX_COMPILER=llvm   TRAVIS_CK_USE_PYTHON_SIM=1
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python                                         # install and link python3 and pip3 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install llvm\@5
-        - os: osx
-          language: generic
-          python:   3.6
-          env:
-                - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=0
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python                                         # install and link python3 and pip3 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
+            elif [ $TRAVIS_CK_CXX_COMPILER == "gcc" ]; then
                 - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
-        - os: osx
-          language: generic
-          python:   3.6
-          env:
-                - TRAVIS_CK_CXX_COMPILER=gcc    TRAVIS_CK_USE_PYTHON_SIM=1
-          before_install:
-                - brew update                                                   # this swaps python versions and makes 3 the default one
-                - brew reinstall python                                         # install and link python3 and pip3 to /usr/local/bin
-                - export PATH=/usr/local/opt/python/libexec/bin:$PATH
-                - brew install gcc\@6 || brew link --overwrite gcc\@6           # to avoid symlink conflict with oclint
+            fi
+
+            export CK_PLATFORM_INDEX=2                                          # used later by CK
+        else
+            sudo apt-get update -qq
+            sudo apt-get install python-pip
+            export CK_PLATFORM_INDEX=1                                          # used later by CK
+        fi
 
 install:
-    - echo "os=${TRAVIS_OS_NAME}, python=${TRAVIS_PYTHON_VERSION}, compiler=${TRAVIS_CK_CXX_COMPILER}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}"
+    - CWD=`pwd`
+    - THIS_REPO_NAME=`basename $CWD`
+    - echo "os=${TRAVIS_OS_NAME}, python=${TRAVIS_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
     - which python
     - python --version
-    - if [ $TRAVIS_OS_NAME == "osx" ]; then export CK_PLATFORM_INDEX=2; else export CK_PLATFORM_INDEX=1; fi
     - python -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
     - python -m pip install -r requirements.txt                                 # ck kernel itself
-    - ck pull repo:ck-projectq                                                  # trigger pulling dependent repositories
+    - ck pull repo:${THIS_REPO_NAME}                                            # trigger pulling dependent repositories
     - echo $CK_PLATFORM_INDEX | ck detect platform.os --update_platform_init    # set the platform to generic-linux (1) or generic-macos (2)
     -          ck detect soft:compiler.python --full_path=`which python`        # pick the one Travis has set for us in the PATH
     -          ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER}
