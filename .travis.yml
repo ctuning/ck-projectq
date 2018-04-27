@@ -20,35 +20,29 @@ matrix:
     include:
         - os: osx
           language: generic
-          python:   2.7
-          env:      TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
+          env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
-          python:   2.7
-          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
+          env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
-          python:   2.7
-          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
+          env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
         - os: osx
           language: generic
-          python:   3.6
-          env:      TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
+          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
-          python:   3.6
-          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
+          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
-          python:   3.6
-          env:      TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
+          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
 
 before_install:
     - |
         if [ $TRAVIS_OS_NAME == "osx" ]; then
             brew update                                                         # this swaps python versions and makes 3 the default one
 
-            if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then
+            if [ "$WANTED_PYTHON_VERSION" == "2.7" ]; then
                 brew reinstall python\@2 || brew link --overwrite python\@2     # install and link python2 and pip2 to /usr/local/bin
             else
                 brew reinstall python                                           # install and link python3 and pip3 to /usr/local/bin
@@ -65,13 +59,14 @@ before_install:
         else
             sudo apt-get update -qq
             sudo apt-get install python-pip
+            export WANTED_PYTHON_VERSION=$TRAVIS_PYTHON_VERSION                 # since Python is supported in Linux, get it from Travis
             export CK_PLATFORM_INDEX=1                                          # used later by CK
         fi
 
 install:
     - CWD=`pwd`
     - THIS_REPO_NAME=`basename $CWD`
-    - echo "os=${TRAVIS_OS_NAME}, python=${TRAVIS_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
+    - echo "os=${TRAVIS_OS_NAME}, python=${WANTED_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
     - which python
     - python --version
     - python -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
