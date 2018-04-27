@@ -20,21 +20,27 @@ matrix:
     include:
         - os: osx
           language: generic
+          python:   2.7
           env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
+          python:   2.7
           env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
+          python:   2.7
           env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
         - os: osx
           language: generic
+          python:   3.6
           env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
+          python:   3.6
           env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
+          python:   3.6
           env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
 
 before_install:
