@@ -29,7 +29,6 @@ rm -rf ${PY_DEPS_TREE}
     # This is the "end" directory that will contain dependencies and projectq module itself:
     #
 export PROJECTQ_LIB_DIR=${INSTALL_DIR}/build
-export PROJECTQ_INC_DIR=${INSTALL_DIR}/inc
 SHORT_PYTHON_VERSION=`${CK_ENV_COMPILER_PYTHON_FILE} -c 'import sys;print(sys.version[:3])'`
 ln -s "${PY_DEPS_TREE}/lib/python${SHORT_PYTHON_VERSION}/site-packages" $PROJECTQ_LIB_DIR
 export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
@@ -63,15 +62,12 @@ if [ "$USE_PYTHON_SIM" -eq "1" ]; then
 else 
     echo "Using C++ simulator (faster)"
 
-    ln -s ${PY_DEPS_TREE}/include/python* $PROJECTQ_INC_DIR   # either the asterisk expands, or the directory is empty anyway
+    PYBIND11_INSTALL_LOCATION=`${CK_PYTHON_BIN} -m pip show pybind11 | grep Location: | cut -d ' ' -f 2`
+    PYBIND11_H_RELATIVE_PATH=`${CK_PYTHON_BIN} -m pip show -f pybind11 | grep pybind11/pybind11.h | awk '{print $1}'`
+    PYBIND11_H_DIRECTORY=`dirname $PYBIND11_INSTALL_LOCATION/$PYBIND11_H_RELATIVE_PATH`
+    PROJECTQ_INC_DIR=`dirname $PYBIND11_H_DIRECTORY`
 
-    echo "------------- PROJECTQ_INC_DIR = $PROJECTQ_INC_DIR -------------------"
-    ls -ld $PROJECTQ_INC_DIR
-    ls -l $PROJECTQ_INC_DIR/
-    echo "------- find ${PY_DEPS_TREE} ------"
-    find ${PY_DEPS_TREE}
-    echo "------- ${CK_PYTHON_BIN} -m pip show -f pybind11 ------"
-    ${CK_PYTHON_BIN} -m pip show -f pybind11
+    echo "Pybind11's include files are located here: $PROJECTQ_INC_DIR"
 
     export COMMON_FLAGS="-I${PROJECTQ_INC_DIR} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}"
     env CC="${CK_CC} ${COMMON_FLAGS}" CXX="${CK_CXX} ${COMMON_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
