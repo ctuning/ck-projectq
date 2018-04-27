@@ -75,7 +75,9 @@ install:
     - echo "os=${TRAVIS_OS_NAME}, python=${WANTED_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
     - which python
     - python --version
+    - python -m pip show pip                                                    # which version of pip were we running?
     - python -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
+    - python -m pip show pip                                                    # which version of pip are we running?
     - python -m pip install -r requirements.txt                                 # ck kernel itself
     - ck pull repo:${THIS_REPO_NAME}                                            # trigger pulling dependent repositories
     - echo $CK_PLATFORM_INDEX | ck detect platform.os --update_platform_init    # set the platform to generic-linux (1) or generic-macos (2)
