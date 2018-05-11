@@ -45,7 +45,7 @@ cd ${INSTALL_DIR}/src
 
     # First we install the dependencies and provide a path to them:
     #
-${CK_PYTHON_BIN} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
+${CK_ENV_COMPILER_PYTHON_FILE} -m pip install -r requirements.txt --prefix=${PY_DEPS_TREE} --no-cache-dir
 
 if [ "${?}" != "0" ] ; then
     echo "Error: installation of the dependencies failed!"
@@ -58,19 +58,19 @@ ls -l $PROJECTQ_LIB_DIR/
 if [ "$USE_PYTHON_SIM" -eq "1" ]; then
     echo "Using Python simulator (slower)"
 
-    ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --global-option=--without-cppsimulator --no-cache-dir
+    ${CK_ENV_COMPILER_PYTHON_FILE} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --global-option=--without-cppsimulator --no-cache-dir
 else 
     echo "Using C++ simulator (faster)"
 
-    PYBIND11_INSTALL_LOCATION=`${CK_PYTHON_BIN} -m pip show pybind11 | grep Location: | cut -d ' ' -f 2`
-    PYBIND11_H_RELATIVE_PATH=`${CK_PYTHON_BIN} -m pip show -f pybind11 | grep pybind11/pybind11.h | awk '{print $1}'`
+    PYBIND11_INSTALL_LOCATION=`${CK_ENV_COMPILER_PYTHON_FILE} -m pip show pybind11 | grep Location: | cut -d ' ' -f 2`
+    PYBIND11_H_RELATIVE_PATH=`${CK_ENV_COMPILER_PYTHON_FILE} -m pip show -f pybind11 | grep pybind11/pybind11.h | awk '{print $1}'`
     PYBIND11_H_DIRECTORY=`dirname $PYBIND11_INSTALL_LOCATION/$PYBIND11_H_RELATIVE_PATH`
     PROJECTQ_INC_DIR=`dirname $PYBIND11_H_DIRECTORY`
 
     echo "Pybind11's include files are located here: $PROJECTQ_INC_DIR"
 
     export COMMON_FLAGS="-I${PROJECTQ_INC_DIR} ${CK_CXX_COMPILER_STDLIB} ${CK_COMPILER_OWN_LIB_LOC}"
-    env CC="${CK_CC} ${COMMON_FLAGS}" CXX="${CK_CXX} ${COMMON_FLAGS}"  ${CK_PYTHON_BIN} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
+    env CC="${CK_CC} ${COMMON_FLAGS}" CXX="${CK_CXX} ${COMMON_FLAGS}"  ${CK_ENV_COMPILER_PYTHON_FILE} -m pip install . --no-deps --prefix=${PY_DEPS_TREE} --no-cache-dir
 fi
 
 if [ "${?}" != "0" ] ; then
