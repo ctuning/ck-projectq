@@ -50,23 +50,22 @@
   "only_for_target_os_tags": [
     "linux"
   ], 
-  "package_extra_name": " (built, cpu)", 
   "process_script": "install", 
-  "soft_uoa": "9c33483e8eb28521", 
+  "soft_uoa": "lib.projectq",
   "suggested_path": "lib-projectq", 
   "tags": [
-    "lib", 
-    "projectq", 
-    "project-q", 
-    "quantum", 
-    "vcpu"
+    "lib",
+    "python-package",
+    "projectq",
+    "project-q",
+    "quantum"
   ], 
   "use_preprocess_scripts_from_another_entry": {
-    "data_uoa": "fd44428fbc77f77f", 
+    "data_uoa": "process-compiler-for-cmake",
     "module_uoa": "script"
   }, 
   "use_scripts_from_another_entry": {
-    "data_uoa": "cd9ccc74060b3d18", 
+    "data_uoa": "download-and-install-package",
     "module_uoa": "script"
   }
 }
