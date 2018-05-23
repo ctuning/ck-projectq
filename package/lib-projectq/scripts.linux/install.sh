@@ -34,12 +34,6 @@ ln -s "${PY_DEPS_TREE}/lib/python${SHORT_PYTHON_VERSION}/site-packages" $PROJECT
 export PYTHONPATH=$PROJECTQ_LIB_DIR:$PYTHONPATH
 
 ######################################################################################
-# Print info about possible issues
-echo ""
-echo "Note that you sometimes need to upgrade your pip to the latest version"
-echo "to avoid well-known issues with user/system space installation:"
-
-######################################################################################
 
 cd ${INSTALL_DIR}/src
 
@@ -51,9 +45,6 @@ if [ "${?}" != "0" ] ; then
     echo "Error: installation of the dependencies failed!"
     exit 1
 fi
-
-echo "------------- PROJECTQ_LIB_DIR = $PROJECTQ_LIB_DIR -------------------"
-ls -l $PROJECTQ_LIB_DIR/
 
 if [ "$USE_PYTHON_SIM" -eq "1" ]; then
     echo "Using Python simulator (slower)"
