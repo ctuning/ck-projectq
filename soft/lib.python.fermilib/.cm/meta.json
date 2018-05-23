@@ -16,12 +16,6 @@
       "name": "ProjectQ library",
       "sort": 10,
       "tags": "lib,python-package,projectq"
-    },
-    "lib-python-scipy": {
-      "local": "yes",
-      "name": "SciPy Python library",
-      "sort": 20,
-      "tags": "lib,python-package,scipy"
     }
   },
   "tags": [
