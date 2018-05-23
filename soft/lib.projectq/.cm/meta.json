@@ -8,14 +8,21 @@
       "linux": 5, 
       "win": 5
     }, 
-    "soft_file": {
-      "linux": "projectq/__init__.py", 
-      "win": "projectq\\__init__.py"
-    }
+    "soft_file_universal": "projectq$#sep#$__init__.py"
   }, 
+  "deps": {
+    "lib-python-scipy": {
+      "local": "yes",
+      "name": "SciPy Python library",
+      "sort": 10,
+      "tags": "lib,python-package,scipy"
+    }
+  },
   "soft_name": "ProjectQ", 
   "tags": [
     "lib", 
+    "python-package",
+    "project-q",
     "projectq"
   ]
 }
