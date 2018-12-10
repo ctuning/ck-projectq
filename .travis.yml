@@ -50,13 +50,6 @@ before_install:
         if [ $TRAVIS_OS_NAME == "osx" ]; then
             brew update                                                         # this swaps python versions and makes 3 the default one
 
-            if [ "$WANTED_PYTHON_VERSION" == "2.7" ]; then
-                brew reinstall python\@2 || brew link --overwrite python\@2     # install and link python2 and pip2 to /usr/local/bin
-            else
-                brew reinstall python                                           # install and link python3 and pip3 to /usr/local/bin
-            fi
-            export PATH=/usr/local/opt/python/libexec/bin:$PATH
-
             if [ "$TRAVIS_CK_CXX_COMPILER" == "llvm" ]; then
                 brew install llvm\@5
                 export TRAVIS_CK_COMPILER_CHOICE="Version 5"
@@ -77,15 +70,16 @@ install:
     - CWD=`pwd`
     - THIS_REPO_NAME=`basename $CWD`
     - echo "os=${TRAVIS_OS_NAME}, python=${WANTED_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
-    - which python
-    - python --version
-    - python -m pip show pip                                                    # which version of pip were we running?
-    - python -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
-    - python -m pip show pip                                                    # which version of pip are we running?
-    - python -m pip install ck                                                  # CK kernel itself
+    - PYTHON_FOR_CK=python
+    - which ${PYTHON_FOR_CK}
+    - ${PYTHON_FOR_CK} --version
+    - ${PYTHON_FOR_CK} -m pip show pip                                                    # which version of pip were we running?
+    - ${PYTHON_FOR_CK} -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
+    - ${PYTHON_FOR_CK} -m pip show pip                                                    # which version of pip are we running?
+    - ${PYTHON_FOR_CK} -m pip install ck                                                  # CK kernel itself
     - ck pull repo:${THIS_REPO_NAME}                                            # trigger pulling dependent repositories
     - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init   # set the platform to generic-linux (1) or generic-macos (2)
-    -          ck detect soft:compiler.python --full_path=`which python`        # pick the one Travis has set for us in the PATH
+    - echo | ck detect soft:compiler.python --default_selection="$WANTED_PYTHON_VERSION" --first_match
     - echo | ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER} --default_selection="$TRAVIS_CK_COMPILER_CHOICE" --first_match
     -          ck install package:lib-python-scipy                              # enforce installation to avoid detecting a wrong one
     -          ck install package:lib-projectq --env.USE_PYTHON_SIM=${TRAVIS_CK_USE_PYTHON_SIM}
