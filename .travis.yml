@@ -73,16 +73,16 @@ install:
     - PYTHON_FOR_CK=python
     - which ${PYTHON_FOR_CK}
     - ${PYTHON_FOR_CK} --version
-    - ${PYTHON_FOR_CK} -m pip show pip                                                    # which version of pip were we running?
-    - ${PYTHON_FOR_CK} -m pip install --ignore-installed --verbose pip setuptools         # make sure pip is also up to date no matter what
-    - ${PYTHON_FOR_CK} -m pip show pip                                                    # which version of pip are we running?
-    - ${PYTHON_FOR_CK} -m pip install ck                                                  # CK kernel itself
-    - ck pull repo:${THIS_REPO_NAME}                                            # trigger pulling dependent repositories
-    - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init   # set the platform to generic-linux (1) or generic-macos (2)
+    - rm -f `which pip`                                                                 # the file is removable, but not writeable
+    - ${PYTHON_FOR_CK} -m pip install --ignore-installed --verbose pip setuptools       # make sure pip is also up to date no matter what
+    - ${PYTHON_FOR_CK} -m pip show pip                                                  # which version of pip are we running?
+    - ${PYTHON_FOR_CK} -m pip install ck                                                # CK kernel itself
+    - ck pull repo:${THIS_REPO_NAME}                                                    # trigger pulling dependent repositories
+    - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init           # set the platform to generic-linux (1) or generic-macos (2)
     - echo | ck detect soft:compiler.python --default_selection="$WANTED_PYTHON_VERSION" --first_match
     - echo | ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER} --default_selection="$TRAVIS_CK_COMPILER_CHOICE" --first_match
-    -          ck install package:lib-python-scipy                              # enforce installation to avoid detecting a wrong one
+    -          ck install package:lib-python-scipy                                      # enforce installation to avoid detecting a wrong one
     -          ck install package:lib-projectq --env.USE_PYTHON_SIM=${TRAVIS_CK_USE_PYTHON_SIM}
 
 script:
-    - ck run program:projectq-demo --cmd_key=${TRAVIS_CK_WHICH_TEST}
+    - ck run program:projectq-demo --cmd_key=${TRAVIS_CK_WHICH_TEST} --treat_return_code_as_exit_code
