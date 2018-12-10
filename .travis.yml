@@ -84,7 +84,6 @@ install:
     - ck pull repo:${THIS_REPO_NAME}                                            # trigger pulling dependent repositories
     - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init   # set the platform to generic-linux (1) or generic-macos (2)
     -          ck detect soft:compiler.python --full_path=`which python`        # pick the one Travis has set for us in the PATH
-    -          ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER}
     - echo | ck detect soft:compiler.${TRAVIS_CK_CXX_COMPILER} --default_selection="$TRAVIS_CK_COMPILER_CHOICE" --first_match
     -          ck install package:lib-python-scipy                              # enforce installation to avoid detecting a wrong one
     -          ck install package:lib-projectq --env.USE_PYTHON_SIM=${TRAVIS_CK_USE_PYTHON_SIM}
