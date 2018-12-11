@@ -70,7 +70,7 @@ install:
     - CWD=`pwd`
     - THIS_REPO_NAME=`basename $CWD`
     - echo "os=${TRAVIS_OS_NAME}, python=${WANTED_PYTHON_VERSION}, python_sim=${TRAVIS_CK_USE_PYTHON_SIM}, compiler=${TRAVIS_CK_CXX_COMPILER}"
-    - PYTHON_FOR_CK=python
+    - PYTHON_FOR_CK=python3
     - which ${PYTHON_FOR_CK}
     - ${PYTHON_FOR_CK} --version
     - rm -f `which pip`                                                                 # the file is removable, but not writeable
