@@ -33,17 +33,17 @@ matrix:
           env:      WANTED_PYTHON_VERSION=2.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
         - os: osx
           language: generic
-          python:   3.6
-          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
+          python:   3.7
+          env:      WANTED_PYTHON_VERSION=3.7  TRAVIS_CK_USE_PYTHON_SIM=1  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           language: generic
-          python:   3.6
-          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
+          python:   3.7
+          env:      WANTED_PYTHON_VERSION=3.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=llvm
         - os: osx
           osx_image: xcode9.2
           language: generic
-          python:   3.6
-          env:      WANTED_PYTHON_VERSION=3.6  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
+          python:   3.7
+          env:      WANTED_PYTHON_VERSION=3.7  TRAVIS_CK_USE_PYTHON_SIM=0  TRAVIS_CK_CXX_COMPILER=gcc
 
 before_install:
     - |
